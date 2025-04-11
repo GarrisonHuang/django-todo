@@ -2,10 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+
 # Create your views here.
+def user_login(request):
+    return render(request, "user/login.html")
 
 
-def index(request):
+def user_register(request):
     message = ""
     form = UserCreationForm()
     # all,get,filter
@@ -23,7 +26,6 @@ def index(request):
         elif password1 != password2:
             message = "兩次密碼不一樣"
         # 密碼相同
-
         else:
             # 比對使用者是否存在
             if User.objects.filter(username=username):
