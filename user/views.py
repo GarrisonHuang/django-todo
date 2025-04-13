@@ -17,6 +17,8 @@ def user_profile(request):
 def user_login(request):
     message = ""
     user = None
+    username = request.session.get("username", "")
+
     if request.method == "POST":
         if request.POST.get("register"):
             return redirect("register")
@@ -37,7 +39,11 @@ def user_login(request):
                     message = "帳號或密碼錯誤!"
 
     # return render(request, "user/login.html", {"message": message}, {"user": user})
-    return render(request, "user/login.html", {"message": message, "user": user})
+    return render(
+        request,
+        "user/login.html",
+        {"message": message, "user": user, "username": username},
+    )
 
 
 def user_register(request):
@@ -66,12 +72,7 @@ def user_register(request):
                 user = User.objects.create_user(username=username, password=password1)
                 user.save()
                 message = "註冊成功!"
-                return render(
-                    request,
-                    "user/login.html",
-                    {
-                        "user": user,
-                    },
-                )
+                request.session["username"] = user.username
+                return redirect("login")
 
     return render(request, "user/register.html", {"form": form, "message": message})
