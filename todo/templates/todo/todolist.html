@@ -66,7 +66,8 @@
         </a>
     </div>
     <div class="text">{{todo.text}}</div>
-    <div class="completed" style="background-color:aqua; margin:2px;">
+    <div class="completed" {% if todo.date_completed %} style="background-color:aqua; margin:2px; border-radius:3px;" {%
+        else %} style="background-color:aqua; margin:2px; border-radius:3px;">{% endif %}>
         {% if todo.date_completed %}
         <span style="color:blue">已完成</span>
         {% else %}
