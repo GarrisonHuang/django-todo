@@ -47,16 +47,15 @@
         使用者:<span class="username">
             <a href="{% url 'profile' %}">{{user.username}}</a>
         </span>
-<<<<<<< HEAD
-=======
+        <<<<<<< HEAD=======>>>>>>> e5bec4f (完成綁定登入後代辦事項顯示)
+            <a class="button" style="background-color: red; color:white" href="{% url 'logout' %}">登出</a>
+            <a class="button" style="background-color: rgb(71, 71, 173)" href="{% url 'create-todo' %}">建立事項</a>
+            {% else %}
+            <a class="button" style="background-color:aqua;" href="{% url 'login' %}">登入</a>
+            <a class="button" href="{% url 'register' %}">註冊</a>
+            {% endif %}
+            <a class="button" style="background-color: white" href="{% url 'todolist' %}">回首頁</a>
 
->>>>>>> e5bec4f (完成綁定登入後代辦事項顯示)
-        <a class="button" style="background-color: red; color:white" href="{% url 'logout' %}">登出</a>
-        {% else %}
-        <a class="button" style="background-color:aqua;" href="{% url 'login' %}">登入</a>
-        <a class="button" href="{% url 'register' %}">註冊</a>
-        {% endif %}
-        <a class="button" style="background-color: white" href="/">回首頁</a>
     </div>
     <div id="container">
         {% block content %}
