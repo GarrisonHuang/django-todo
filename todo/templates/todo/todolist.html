@@ -65,7 +65,7 @@
             {% endif %}
         </a>
     </div>
-    <div class="text">{{todo.text}}</div>
+    <div class="text">{{todo.text|linebreaksbr}}</div>
     <div class="completed" {% if todo.date_completed %} style="background-color:aqua; margin:2px; border-radius:3px;" {%
         else %} style="background-color:aqua; margin:2px; border-radius:3px;">{% endif %}>
         {% if todo.date_completed %}
