@@ -4,12 +4,24 @@ from .forms import TodoForm
 from datetime import datetime
 
 
+def delete_todo(request, id):
+    user = request.user
+    todo = None
+    try:
+        todo = Todo.objects.get(id=id, user=user)
+        todo.delete()
+
+    except Exception as e:
+        print(e)
+
+    return redirect("todolist")
+
+
 # 新增代辦事項
 def create_todo(request):
     message = ""
     user = request.user
     form = None
-
     if not user.is_authenticated:
         message = "請先登入"
     else:
@@ -20,6 +32,9 @@ def create_todo(request):
                 form = TodoForm(request.POST)
                 todo = form.save(commit=False)
                 todo.user = request.user
+                now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                todo.date_completed = now if todo.completed else None
+
                 todo.save()
                 message = "提交成功!"
                 return redirect("todolist")
@@ -60,6 +75,6 @@ def todolist(request):
     user = request.user
     todos = None
     if user.is_authenticated:
-        todos = Todo.objects.filter(user=user)
+        todos = Todo.objects.filter(user=user, completed="True")
 
     return render(request, "todo/todolist.html", {"todos": todos})

@@ -46,6 +46,15 @@
         .completed {
             margin-bottom: 3px;
         }
+
+        .del-button {
+            background-color: red;
+            color: white;
+            width: 30px;
+            height: 12px;
+            line-height: 12px;
+            font-size: small;
+        }
     </style>
 
 </head>
@@ -56,9 +65,11 @@
 <h1>Todolist</h1>
 
 {% for todo in todos %}
+{% if not todo.completed %}
 <div class="todo">
     <div class="created">{{todo.created}}</div>
-    <div class="title">
+    <a class="button del-button" href="{% url 'delete-todo' todo.id %}" onclick="return confirm('確定刪除?')">刪除</a>
+    <div class=" title">
         <a href="{% url 'todo' todo.id %}">{{todo.title}}
             {% if todo.important %}
             <span style="color:red; font-size: 16px;">(重要)</span>
@@ -69,12 +80,13 @@
     <div class="completed" {% if todo.date_completed %} style="background-color:aqua; margin:2px; border-radius:3px;" {%
         else %} style="background-color:aqua; margin:2px; border-radius:3px;" {% endif %}>
         {% if todo.completed %}
-        <span style="color:blue">已完成{todo.date_completed}</span>
+        <span style="color:blue">已完成{{todo.date_completed}}</span>
         {% else %}
         進行中
         {% endif %}
     </div>
 </div>
+{% endif %}
 {% endfor %}
 
 {% endblock %}
