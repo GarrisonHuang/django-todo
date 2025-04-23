@@ -71,10 +71,20 @@ def todo(request, id):
 
 
 # Create your views here.
+def todolist(request):
+    user = request.user
+    todos = None
+    if user.is_authenticated:
+        todos = Todo.objects.filter(user=user)
+
+    return render(request, "todo/todolist.html", {"todos": todos})
+
+
+# Create your views here.
 def completed(request):
     user = request.user
     todos = None
     if user.is_authenticated:
-        todos = Todo.objects.filter(user=user, completed=True)
+        todos = Todo.objects.filter(user=user)
 
     return render(request, "todo/completed.html", {"todos": todos})
